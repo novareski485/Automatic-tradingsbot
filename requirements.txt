@@ -1,0 +1,10 @@
+requests
+sqlalchemy
+httpx
+pandas
+numpy
+apscheduler
+web3
+nest_asyncio
+psycopg2  # If using PostgreSQL
+python-dotenv  # To manage environment variables securely
