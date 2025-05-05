@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    build: .
+    container_name: trading-bot-container
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/dbname
+      - GMGN_API_KEY=your_gmgn_api_key
+      - DEXSCR_API_URL=https://api.dexscreener.com/v1
+    depends_on:
+      - db
+    networks:
+      - trading-bot-network
+    restart: always
+
+  db:
+    image: postgres:13
+    container_name: trading-bot-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    volumes:
+      - trading-bot-db-data:/var/lib/postgresql/data
+    networks:
+      - trading-bot-network
+
+volumes:
+  trading-bot-db-data:
+
+networks:
+  trading-bot-network:
+    driver: bridge
